@@ -7,9 +7,9 @@ SCREEN_HEIGHT = 1536  # mobile height for 8bit games
 SCREEN_WIDTH = 864  # mobile width for 8 bit games
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Flappy Bird AI")
+background = pygame.image.load("../assets/Background Day.png")
 
-
-FLYING = pygame.image.load("../assets/FBird_mediumwings.png")
+BIRD_FLYING = pygame.image.load("../assets/FBird_mediumwings.png")
 
 
 def main():
@@ -32,5 +32,5 @@ def main():
 
 main()
 #
-#
+# i am halping
 #
