@@ -3,6 +3,19 @@ Create an ai for the popular game flappy bird to learn neural networks and basic
 
 We'll be expanding on what we've learned from Hassan in this slideshow on the Introduction to Machine Learning: https://docs.google.com/presentation/d/1ySxGJUtw_h__lznZO3IgjoEH2n5dlvtBip-fLgNjAFw/edit?usp=sharing
 
+## Development:
+
+### Setting Up a Python Virtual Environment
+
+- Create a Python virtual environment by typing `python3 -m venv venv` 
+  - You may need to use a different command instead of `python3` such as `python` or `py` (this can be tested by simply typing this command alone and seeing if it opens the Python interpreter which says your Python version and includes `>>>` at the bottom to indicate where you're supposed to code)
+  - the last term in this command `venv` can be changed to whichever name you'd like to give it
+- To activate this virtual environment:
+  - Type `source venv/bin/activate` on a UNIX system such as MacOS or Linux
+  - Type `venv\Scripts\activate` on Windows
+- Once you'd like to deactivate it, type `venv\Scripts\deactivate` on Windows or `deactivate` on a UNIX-based OS
+
+
 ## Create Game:
 
 Chrome dinosaur game in pygame: https://www.youtube.com/watch?v=lcC-jiCuDnQ (first video in a series) 
