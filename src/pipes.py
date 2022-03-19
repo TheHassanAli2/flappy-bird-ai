@@ -12,6 +12,7 @@ class Pipes:
         self.top_img = pygame.transform.flip(img, False, True) #flipped the bottom pipe's image
         self.base_img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","base.png")).convert_alpha(), (1700, 200))
         self.x = x
+        self.countScore = True
         self.base_x = 0
         self.randomHeight()
         
@@ -20,6 +21,7 @@ class Pipes:
     def randomHeight(self):
         self.ybot = random.randint(300, 650) #Random Y value for the bot pipe
         self.ytop = self.ybot - (self.GAP + 640) #Y value for the top pipe
+        self.countScore = True
 
     def move(self):
         self.x -= self.VELOCITY
@@ -28,8 +30,8 @@ class Pipes:
         if self.x <-100:
             self.x += 700
             self.randomHeight()
-        if self.base_x <-900:
-            self.base_x += 900
+        if self.base_x <-800:
+            self.base_x += 723
 
     def draw(self, window):
         window.blit(self.bot_img, (self.x, self.ybot))
