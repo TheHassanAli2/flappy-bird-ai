@@ -16,6 +16,9 @@ BG =  pygame.transform.scale(pygame.image.load(os.path.join("Assets","bgday.png"
 
 birds = [Bird(60,60)]
 opipes = Pipes(600)
+def hasCollided(bird, pipes):
+    if pipes.x <= bird.x and bird.x <= (pipes.x + 104): #If the bird is within the width of the pipe
+        if pipes.ytop <=  bird.y and
 
 def main():
     #pygame.mixer.music.load("../audio/music_zapsplat_easy_cheesy.mp3")
@@ -23,9 +26,7 @@ def main():
     # pygame.mixer.music.set_volume(0.2)
     clock = pygame.time.Clock()
     running = True
-    pipe_count = 0
     while running:
-        pipe_count += 1
         clock.tick(30)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

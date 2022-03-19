@@ -1,5 +1,6 @@
 import random
 import pygame
+import time
 import os
 
 class Pipes:
@@ -10,7 +11,6 @@ class Pipes:
         self.bot_img = img
         self.top_img = pygame.transform.flip(img, False, True) #flipped the bottom pipe's image
         self.x = x
-        self.randtick = 0
         self.randomHeight()
         self.rectbot = pygame.Rect(self.x, self.ybot, img.get_width(), img.get_height()) #Create a hitbox for the bottom pipe
         self.recttop = pygame.Rect(self.x, self.ytop, img.get_width(), img.get_height()) #Create a hitbox for the top pipe
@@ -18,16 +18,15 @@ class Pipes:
     #def update(self):
     
     def randomHeight(self):
-        random.seed(self.randtick)
-        print(self.randtick)
         self.ybot = random.randint(200, 750) #Random Y value for the bot pipe
         self.ytop = self.ybot - (self.GAP + 640) #Y value for the top pipe
 
     def move(self):
-        self.randtick+=1
         self.x -= self.VELOCITY
         self.rectbot.x = self.x
+        self.rectbot.y = self.ybot
         self.recttop.x = self.x
+        self.recttop.y = self.ytop
         
         if self.x <-100:
             self.x += 700
