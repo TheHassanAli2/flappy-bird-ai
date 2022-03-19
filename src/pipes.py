@@ -10,30 +10,30 @@ class Pipes:
     def __init__(self, x, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","pipe.png")).convert_alpha(), (104, 640))):
         self.bot_img = img
         self.top_img = pygame.transform.flip(img, False, True) #flipped the bottom pipe's image
+        self.base_img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","base.png")).convert_alpha(), (1700, 200))
         self.x = x
+        self.base_x = 0
         self.randomHeight()
-        self.rectbot = pygame.Rect(self.x, self.ybot, img.get_width(), img.get_height()) #Create a hitbox for the bottom pipe
-        self.recttop = pygame.Rect(self.x, self.ytop, img.get_width(), img.get_height()) #Create a hitbox for the top pipe
         
     #def update(self):
     
     def randomHeight(self):
-        self.ybot = random.randint(200, 750) #Random Y value for the bot pipe
+        self.ybot = random.randint(300, 650) #Random Y value for the bot pipe
         self.ytop = self.ybot - (self.GAP + 640) #Y value for the top pipe
 
     def move(self):
         self.x -= self.VELOCITY
-        self.rectbot.x = self.x
-        self.rectbot.y = self.ybot
-        self.recttop.x = self.x
-        self.recttop.y = self.ytop
+        self.base_x -= self.VELOCITY
         
         if self.x <-100:
             self.x += 700
             self.randomHeight()
+        if self.base_x <-900:
+            self.base_x += 900
 
     def draw(self, window):
-        window.blit(self.bot_img, (self.rectbot.x, self.rectbot.y))
-        window.blit(self.top_img, (self.recttop.x, self.recttop.y))
+        window.blit(self.bot_img, (self.x, self.ybot))
+        window.blit(self.top_img, (self.x, self.ytop))
+        window.blit(self.base_img, (self.base_x, 700))
 
     

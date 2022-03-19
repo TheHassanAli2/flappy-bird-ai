@@ -15,7 +15,7 @@ from pipes import Pipes #Same as above
 BG =  pygame.transform.scale(pygame.image.load(os.path.join("Assets","bgday.png")).convert_alpha(), (600, 900))
 
 birds = [Bird(60,60)]
-opipes = Pipes(600)
+pipe_object = Pipes(600)
 
 def gameOver():
     #pygame.quit()
@@ -23,6 +23,8 @@ def gameOver():
 
 #Super ugly, will clean up
 def hasCollided(bird, pipes):
+    if (bird.y + 36) >= 700:
+        return True
     if (pipes.x <= bird.x or pipes.x <= (bird.x+51)) and (bird.x <= (pipes.x + 104) or (bird.x+51) <= (pipes.x + 104)): #If the bird is within the width of the pipe
         if (pipes.ytop <=  bird.y or pipes.ytop <=  (bird.y + 36)) and (bird.y <= (pipes.ytop + 640) or (bird.y + 36) <= (pipes.ytop + 640)):
             return True
@@ -38,27 +40,24 @@ def main():
     running = True
     while running:
         clock.tick(30)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-            if running == False:
-                pygame.quit()
-        
         SCREEN.blit(BG, (0,0))
-        for bird in birds:
+        for i, bird in enumerate(birds):
             bird.move()
             bird.draw(SCREEN)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                if running == False:
+                    pygame.quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        bird.jump()
+            pipe_object.move()
+            pipe_object.draw(SCREEN)
 
-        opipes.move()
-        opipes.draw(SCREEN)
-        user_input = pygame.key.get_pressed()
-
-        for i, bird in enumerate(birds):
-            if user_input[pygame.K_SPACE]:
-                bird.jump()
-        if hasCollided(bird, opipes):
-            gameOver()
-        pygame.display.update()
+            if hasCollided(bird, pipe_object):
+                gameOver()
+            pygame.display.update()
     pygame.quit()  # make sure this stays at the end of our file
 
 
