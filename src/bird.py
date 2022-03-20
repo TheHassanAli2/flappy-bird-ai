@@ -2,9 +2,9 @@ import pygame
 import os
 
 class Bird:
-    ACCELERATION = 3.0 #Value for how fast the bird should accelerate downwards
-    JUMP_CONST = -10.0 #Value for how much the bird should accelerate up by when it jumps
-    TERMINAL_VELOCITY = 16.0 #Value for the amount of displacement where the bird stops accelerating
+    ACCELERATION = 1 #Value for how fast the bird should accelerate downwards
+    JUMP_CONST = -4.0 #Value for how much the bird should accelerate up by when it jumps
+    TERMINAL_VELOCITY = 10.0 #Value for the amount of displacement where the bird stops accelerating
     
     def __init__(self, x, y, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","FBird_mediumwings.png")).convert_alpha(), (51, 36))):
         self.img = img
@@ -25,9 +25,9 @@ class Bird:
         
     def move(self):
         self.tick += 1
-
+        #y = ax^2 + bx
         #d = vt + 0.5(at^2) kinematic equation, getting displacement of y for the movement of the bird
-        displacement = self.velocity*(self.tick) + (0.5)*(self.ACCELERATION)*(self.tick)**2
+        displacement = self.velocity*(self.tick/2) + (0.5)*(self.ACCELERATION)*(self.tick/2)**2
 
         if displacement >= self.TERMINAL_VELOCITY:
             displacement = self.TERMINAL_VELOCITY if displacement > 0 else (-1)*(self.TERMINAL_VELOCITY) #Stays at T.V with the correct direction

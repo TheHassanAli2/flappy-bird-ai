@@ -4,7 +4,7 @@ import time
 import os
 
 class Pipes:
-    VELOCITY = 16.0 #The amount of pixels the pipes will be moving at
+    VELOCITY = 8.0 #The amount of pixels the pipes will be moving at
     GAP = 200 #The amount of pixels between the top and bottom pipe
     
     def __init__(self, x, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","pipe.png")).convert_alpha(), (104, 640))):
@@ -21,6 +21,7 @@ class Pipes:
     def randomHeight(self):
         self.ybot = random.randint(300, 650) #Random Y value for the bot pipe
         self.ytop = self.ybot - (self.GAP + 640) #Y value for the top pipe
+        self.countScore = True
 
     def move(self):
         self.x -= self.VELOCITY

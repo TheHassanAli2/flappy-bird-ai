@@ -16,7 +16,7 @@ BG =  pygame.transform.scale(pygame.image.load(os.path.join("Assets","bgday.png"
 
 FONT = pygame.font.SysFont("comicsans", 50)
 
-birds = [Bird(160,60)]
+birds = [Bird(160,300)]
 pipe_object = Pipes(600)
 score = 0
 
@@ -29,7 +29,7 @@ def main():
     global score
     score = 0
     while running:
-        clock.tick(30)
+        clock.tick(60)
         SCREEN.blit(BG, (0,0))
         for i, bird in enumerate(birds):
             pipe_object.move()
@@ -64,14 +64,15 @@ def gameOver():
 def hasCollided(bird, pipes):
     global score
     if (bird.y + 36) >= 700:
-        return True
+        bird.failed = True
     if (pipes.x <= bird.x or pipes.x <= (bird.x+51)) and (bird.x <= (pipes.x + 104) or (bird.x+51) <= (pipes.x + 104)): #If the bird is within the width of the pipe
         print(pipes.x)
         if (pipes.ytop <=  bird.y or pipes.ytop <=  (bird.y + 36)) and (bird.y <= (pipes.ytop + 640) or (bird.y + 36) <= (pipes.ytop + 640)):
             bird.failed = True
         elif (pipes.ybot <=  bird.y or pipes.ybot <=  (bird.y + 36)) and (bird.y <= (pipes.ybot + 640) or (bird.y + 36) <= (pipes.ybot + 640)):
-            bird.failed == True
-        elif (pipes.x<= 68):
+            bird.failed = True
+        elif (pipes.x<= 60 and pipes.countScore):
+            pipes.countScore = False
             score+=1
 
 main()
