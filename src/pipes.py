@@ -4,7 +4,7 @@ import time
 import os
 
 class Pipes:
-    VELOCITY = 8.0 #The amount of pixels the pipes will be moving at
+    VELOCITY = 5.0 #The amount of pixels the pipes will be moving at
     GAP = 200 #The amount of pixels between the top and bottom pipe
     
     def __init__(self, x, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","pipe.png")).convert_alpha(), (104, 640))):
