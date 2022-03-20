@@ -21,7 +21,6 @@ class Pipes:
     def randomHeight(self):
         self.ybot = random.randint(300, 650) #Random Y value for the bot pipe
         self.ytop = self.ybot - (self.GAP + 640) #Y value for the top pipe
-        self.countScore = True
 
     def move(self):
         self.x -= self.VELOCITY
@@ -37,5 +36,9 @@ class Pipes:
         window.blit(self.bot_img, (self.x, self.ybot))
         window.blit(self.top_img, (self.x, self.ytop))
         window.blit(self.base_img, (self.base_x, 700))
+    def stop(self):
+        self.VELOCITY = 0
+    def start(self):
+        self.VELOCITY = 16.0
 
     

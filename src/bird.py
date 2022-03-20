@@ -14,6 +14,7 @@ class Bird:
         self.velocity = 0.0
         self.tick = 0
         self.rect = pygame.Rect(self.x, self.y, img.get_width(), img.get_height())
+        self.failed = False
         
     #def update(self):
 
@@ -34,7 +35,14 @@ class Bird:
         if displacement < 0:
             displacement -= 2 #If it jumped, make the acceleration upwards slowly turn downwards
 
+        if self.y > 700:
+            displacement = 0
+
         self.y = self.y + displacement
         self.rect.y = self.y
     def draw(self, window):
         window.blit(self.img, (self.rect.x, self.rect.y))
+    def stop(self):
+        self.JUMP_CONST = 0
+    def start(self):
+        self.JUMP_CONST = -10.0
