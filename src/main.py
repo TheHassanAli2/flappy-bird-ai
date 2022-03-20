@@ -12,7 +12,7 @@ pygame.display.set_caption("Flappy Bird AI")
 from bird import Bird #scaling of the bird image has to be done after the display function
 from pipes import Pipes #Same as above
 
-BG =  pygame.transform.scale(pygame.image.load(os.path.join("Assets","bgday.png")).convert_alpha(), (600, 900))
+BG =  pygame.transform.scale(pygame.image.load(os.path.join("Assets","makkah.jpg")).convert_alpha(), (600, 900))
 
 FONT = pygame.font.SysFont("comicsans", 50)
 

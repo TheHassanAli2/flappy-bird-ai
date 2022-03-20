@@ -4,13 +4,13 @@ import time
 import os
 
 class Pipes:
-    VELOCITY = 8.0 #The amount of pixels the pipes will be moving at
+    VELOCITY = 5 #The amount of pixels the pipes will be moving at
     GAP = 200 #The amount of pixels between the top and bottom pipe
     
-    def __init__(self, x, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","pipe.png")).convert_alpha(), (104, 640))):
+    def __init__(self, x, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","khalifa.jpg")).convert_alpha(), (104, 640))):
         self.bot_img = img
         self.top_img = pygame.transform.flip(img, False, True) #flipped the bottom pipe's image
-        self.base_img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","base.png")).convert_alpha(), (1700, 200))
+        self.base_img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","arabic.jpg")).convert_alpha(), (1700, 200))
         self.x = x
         self.countScore = True
         self.base_x = 0
