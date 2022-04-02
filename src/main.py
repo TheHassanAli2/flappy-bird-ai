@@ -1,5 +1,6 @@
 import pygame
 import os
+import neat
 
 pygame.init() #initialize pygame module
 
@@ -22,20 +23,34 @@ BG =  pygame.transform.scale(pygame.image.load(os.path.join("Assets","bgday.png"
 #font for general text
 FONT = pygame.font.SysFont("comicsans", 50)
 
-birds = [Bird(160,300)] #object of Bird, passing in size | can add more to this list
-pipe_object = Pipes(600) #x-coord of pipe, where it starts with y-coord being randomized
+
 score = 0
 
-def main():
+def eval_genomes(genomes, config):
+    
     #TODO fix audio file or pick new one
     #pygame.mixer.music.load("../audio/music_zapsplat_easy_cheesy.mp3")
     # pygame.mixer.music.play(-1)
     # pygame.mixer.music.set_volume(0.2)
     clock = pygame.time.Clock()
     
-    global score #this sets a global variable despite this otherwise being local to the main() functio
+    global score, birds, nets, pipe_object, ge #this sets a global variable despite this otherwise being local to the main() functio
     score = 0
     running = True
+    birds = [] #object of Bird, passing in size | can add more to this list
+    ge = [] #info on each individual bird for the algorithm
+    nets = []
+    pipe_object = Pipes(600) #x-coord of pipe, where it starts with y-coord being randomized
+
+    for genome_id, genome in genomes: #for each of the 15 birds created
+        birds.append(Bird(160,300))  #create a bird object
+        ge.append(genome)  #Add the bird genome to the genome list
+        net = neat.nn.FeedForwardNetwork.create(genome, config) #create a neural network of inputs and outputs for each genome
+        nets.append(net) #Add each neural network to the nets list
+        genome.fitness = 0 #Every genome starts with a fitness level of 0
+
+    
+
     while running:
         clock.tick(60) #FPS affects everything's clock speed
         
@@ -75,9 +90,10 @@ def main():
             
             if(bird.failed):
                 #making pipe and bird stop moving
-                pipe_object.stop()
+                # pipe_object.stop()
                 bird.stop()
-                gameOver()
+                ge[i].fitness -=1
+                # gameOver()
 
             #updating display constantly
             pygame.display.update()
@@ -103,7 +119,22 @@ def hasCollided(bird, pipes):
             pipes.countScore = False
             score+=1
 
-main()
+def run(config_path):
+    config = neat.config.Config(
+        neat.DefaultGenome,
+        neat.DefaultReproduction,
+        neat.DefaultSpeciesSet,
+        neat.DefaultStagnation,
+        config_path
+    )
+
+    pop = neat.Population(config)
+    pop.run(eval_genomes,50)
+
+if __name__ == '__main__':
+    local_dir = os.path.dirname(__file__)
+    config_path = os.path.join(local_dir,'config.txt')
+    run(config_path)
 #
 # i am halping
 #
