@@ -66,9 +66,10 @@ def eval_genomes(genomes, config):
 
         #this enumerates each bird, giving them a number such as bird:1 and this
         #number is stored as i
+        pipe_object.move() #moves to left
+        pipe_object.draw(SCREEN)
         for i, bird in enumerate(birds):
-            pipe_object.move() #moves to left
-            pipe_object.draw(SCREEN)
+            
             bird.move()
             bird.draw(SCREEN)
 
@@ -105,8 +106,9 @@ def eval_genomes(genomes, config):
             if(bird.failed):
                 #making pipe and bird stop moving
                 # pipe_object.stop()
-                bird.stop()
-                ge[i].fitness -=1 #When a dinosaur collides, they will be considered less fit and thus won't pass their genes
+                ge[i].fitness -=1
+                remove(i)
+                 #When a dinosaur collides, they will be considered less fit and thus won't pass their genes
                 # gameOver()
 
             #updating display constantly
