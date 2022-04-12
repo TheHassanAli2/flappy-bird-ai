@@ -1,7 +1,7 @@
 [NEAT]
 fitness_criterion     = max 
 fitness_threshold     = 10000
-pop_size              = 15 #Number of birds
+pop_size              = 15
 reset_on_extinction   = False
 
 [DefaultGenome]
@@ -45,7 +45,7 @@ node_delete_prob        = 0.2
 
 # network parameters
 num_hidden              = 0
-num_inputs              = 3 # y of the bird, horizontal distance to the top pipe, vertical distance to the top pipe's bottom
+num_inputs              = 3 
 num_outputs             = 1
 
 # node response options

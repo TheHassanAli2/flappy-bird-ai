@@ -3,7 +3,7 @@ import pygame
 import os
 
 class Pipes:
-    VELOCITY = 5.0 #The amount of pixels the pipes will be moving at per tick
+    VELOCITY = 0.333 #The amount of pixels the pipes will be moving at per tick
     
     #TODO as score increases, this should be decreased to make the game more difficult
     #? could be linear or reciprocal to a certain point

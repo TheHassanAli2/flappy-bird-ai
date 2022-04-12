@@ -1,6 +1,7 @@
 import pygame
 import os
 import neat
+import math
 
 pygame.init() #initialize pygame module
 
@@ -25,6 +26,11 @@ FONT = pygame.font.SysFont("comicsans", 50)
 
 
 score = 0
+
+def remove(index):
+    birds.pop(index)
+    ge.pop(index)
+    nets.pop(index)
 
 def eval_genomes(genomes, config):
     
@@ -65,6 +71,14 @@ def eval_genomes(genomes, config):
             pipe_object.draw(SCREEN)
             bird.move()
             bird.draw(SCREEN)
+
+            x_dist = pipe_object.x - bird.x #Distance between bird and pipes for the neural network
+            y_dist = bird.y - pipe_object.ybot #Distance between bird and pipes for the neural network
+            
+            output = nets[i].activate((bird.y, x_dist, y_dist)) #Output of 
+            if output[0] > 0.5:
+                press_space = pygame.event.Event(pygame.KEYDOWN, unicode=" s", key=pygame.K_SPACE, mod=pygame.KMOD_NONE) #simulate a space press
+                pygame.event.post(press_space) #add the event to the queue
             
             #all events such as mouse movements and keyboard presses are included here
             for event in pygame.event.get():
@@ -92,7 +106,7 @@ def eval_genomes(genomes, config):
                 #making pipe and bird stop moving
                 # pipe_object.stop()
                 bird.stop()
-                ge[i].fitness -=1
+                ge[i].fitness -=1 #When a dinosaur collides, they will be considered less fit and thus won't pass their genes
                 # gameOver()
 
             #updating display constantly
@@ -119,13 +133,13 @@ def hasCollided(bird, pipes):
             pipes.countScore = False
             score+=1
 
-def run(config_path):
-    config = neat.config.Config(
-        neat.DefaultGenome,
+def run(config_path): #Setting up the neat algorithm
+    config = neat.config.Config( #setting default parameters
+        neat.DefaultGenome, 
         neat.DefaultReproduction,
         neat.DefaultSpeciesSet,
         neat.DefaultStagnation,
-        config_path
+        config_path #giving the config path for the neat algorithm
     )
 
     pop = neat.Population(config)
