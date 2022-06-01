@@ -40,8 +40,7 @@ def eval_genomes(genomes, config):
     # pygame.mixer.music.set_volume(0.2)
     clock = pygame.time.Clock()
     
-    global score, birds, nets, pipe_object, ge #this sets a global variable despite this otherwise being local to the main() functio
-    score = 0
+    global score, birds, nets, pipe_object, ge #this sets a global variable despite this otherwise being local to the main() function
     running = True
     birds = [] #object of Bird, passing in size | can add more to this list
     ge = [] #info on each individual bird for the algorithm
@@ -109,12 +108,14 @@ def eval_genomes(genomes, config):
             hasCollided(bird, pipe_object)
             
             if(bird.failed):
-                ge[i].fitness += score #Birds that got further will have more fitness and will be considered more fit to pass genes
+                ge[i].fitness -= 100-score #Birds that got further will have more fitness and will be considered more fit to pass genes
                 remove(i)
+                
 
             #updating display constantly
             pygame.display.update()
         if len(birds) == 0:
+            score = 0
             break
     #pygame.quit()  # make sure this stays at the end of our file
 
