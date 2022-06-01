@@ -9,13 +9,13 @@ class Pipes:
     #? could be linear or reciprocal to a certain point
     GAP = 200 #The amount of pixels between the top and bottom pipe
     
-    def __init__(self, x, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","pipe.png")).convert_alpha(), (104, 640))):
+    def __init__(self, x, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","pipe.png")), (104, 640))):
         self.bot_img = img
         self.top_img = pygame.transform.flip(img, False, True) #flipped the bottom pipe's image
 
         #stretch base of image to avoid it cutting into screen so that when it moves, the right part of it doesn't disappear to keep this 
         #animation looping
-        self.base_img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","base.png")).convert_alpha(), (1700, 200))
+        self.base_img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","base.png")), (1700, 200))
         
         self.x = x
         self.countScore = True

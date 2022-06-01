@@ -58,6 +58,13 @@ def eval_genomes(genomes, config):
     
 
     while running:
+        for event in pygame.event.get():
+                #simply controlling program flow with an ending clause
+                if event.type == pygame.QUIT:
+                    running = False
+                if running == False:
+                    pygame.quit() #Quits the game and uninitiallizes all the pygame modules
+                    sys.exit(0) #kills the program fully so that the modules reinitializes and so the the SCREEN exists again
         clock.tick(60) #FPS affects everything's clock speed
         
         #displays background to screen based on (0, 0) coordinates with
@@ -76,6 +83,9 @@ def eval_genomes(genomes, config):
             x_dist = pipe_object.x - bird.x #Distance between bird and pipes for the neural network
             y_dist = bird.y - pipe_object.ybot #Distance between bird and pipes for the neural network
             
+            if len(birds) == 0:
+                break
+
             output = nets[i].activate((bird.y, x_dist, y_dist)) #Output of 
             if output[0] > 0.5:
                 press_space = pygame.event.Event(pygame.KEYDOWN, unicode=" s", key=pygame.K_SPACE, mod=pygame.KMOD_NONE) #simulate a space press
@@ -83,11 +93,6 @@ def eval_genomes(genomes, config):
             
             #all events such as mouse movements and keyboard presses are included here
             for event in pygame.event.get():
-                #simply controlling program flow with an ending clause
-                if event.type == pygame.QUIT:
-                    running = False
-                if running == False:
-                    pygame.quit()
                 #tracks key presses
                 if event.type == pygame.KEYDOWN:
                     #checks for jump and waits for it to 'come back up' to avoid spamming
@@ -104,21 +109,14 @@ def eval_genomes(genomes, config):
             hasCollided(bird, pipe_object)
             
             if(bird.failed):
-                #making pipe and bird stop moving
-                # pipe_object.stop()
-                ge[i].fitness -=1
+                ge[i].fitness += score #Birds that got further will have more fitness and will be considered more fit to pass genes
                 remove(i)
-                 #When a dinosaur collides, they will be considered less fit and thus won't pass their genes
-                # gameOver()
 
             #updating display constantly
             pygame.display.update()
-    pygame.quit()  # make sure this stays at the end of our file
-
-def gameOver():
-    #pygame.quit()
-    text = FONT.render(f"dead", True, (0,0,0))
-    SCREEN.blit(text,(275,100))
+        if len(birds) == 0:
+            break
+    #pygame.quit()  # make sure this stays at the end of our file
 
 #Super ugly, will clean up
 #simply checks if x or y values collide by checking between the pipe and bird objects

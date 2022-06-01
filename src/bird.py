@@ -6,7 +6,7 @@ class Bird:
     JUMP_CONST = -4.0 #Value for how much the bird should accelerate up by when it jumps | negative values actually mean going up
     TERMINAL_VELOCITY = 10.0 #Value for the amount of displacement where the bird stops accelerating, max value
     
-    def __init__(self, x, y, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","FBird_mediumwings.png")).convert_alpha(), (51, 36))):
+    def __init__(self, x, y, img = pygame.transform.scale(pygame.image.load(os.path.join("Assets","FBird_mediumwings.png")), (51, 36))):
         self.img = img
         self.x = x
         self.y = y
